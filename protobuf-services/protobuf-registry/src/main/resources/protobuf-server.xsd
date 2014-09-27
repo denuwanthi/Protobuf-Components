@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://wso2.com/schema/protobuf/config"
+           xmlns:tns="http://wso2.com/schema/protobuf/config" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="ProtobufConfig" type="tns:protobufConfiguration"/>
+
+    <xs:complexType name="protobufConfiguration">
+        <xs:sequence>
+            <xs:element name="Enable" type="xs:boolean"/>
+            <xs:element name="Server" type="tns:serverConfiguration"/>
+            <xs:element name="Transport" type="tns:transportConfiguration"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="serverConfiguration">
+        <xs:sequence>
+            <xs:element name="Host" type="xs:string"/>
+            <xs:element name="Port" type="xs:int"/>
+            <xs:element name="EnableSSL" type="xs:boolean"/>
+            <xs:element name="ServerCallExecutorThreadPool" type="tns:serverCallExecutorThreadPoolConfiguration"/>
+            <xs:element name="TimeoutExecutorThreadPool" type="tns:timeoutExecutorThreadPoolConfiguration"/>
+            <xs:element name="TimeoutCheckerThreadPool" type="tns:timeoutCheckerThreadPoolConfiguration"/>
+            <xs:element name="Logger" type="tns:loggerConfiguration"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="serverCallExecutorThreadPoolConfiguration">
+        <xs:sequence>
+            <xs:element name="CorePoolSize" type="xs:int"/>
+            <xs:element name="MaxPoolSize" type="xs:int"/>
+            <xs:element name="MaxPoolTimeout" type="xs:int"/>
+            <xs:element name="WorkQueueCapacity" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="timeoutExecutorThreadPoolConfiguration">
+        <xs:sequence>
+            <xs:element name="CorePoolSize" type="xs:int"/>
+            <xs:element name="MaxPoolSize" type="xs:int"/>
+            <xs:element name="KeepAliveTime" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="timeoutCheckerThreadPoolConfiguration">
+        <xs:sequence>
+            <xs:element name="CorePoolSize" type="xs:int"/>
+            <xs:element name="Period" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="loggerConfiguration">
+        <xs:sequence>
+            <xs:element name="LogReqProto" type="xs:boolean"/>
+            <xs:element name="LogResProto" type="xs:boolean"/>
+            <xs:element name="LogEventProto" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="transportConfiguration">
+        <xs:sequence>
+            <xs:element name="Acceptors" type="tns:acceptorsConfiguration"/>
+            <xs:element name="ChannelHandlers" type="tns:channelHandlersConfiguration"/>
+            <xs:element name="TCPNoDelay" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="acceptorsConfiguration">
+        <xs:sequence>
+            <xs:element name="PoolSize" type="xs:int"/>
+            <xs:element name="SendBufferSize" type="xs:int"/>
+            <xs:element name="ReceiverBufferSize" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="channelHandlersConfiguration">
+        <xs:sequence>
+            <xs:element name="PoolSize" type="xs:int"/>
+            <xs:element name="SendBufferSize" type="xs:int"/>
+            <xs:element name="ReceiverBufferSize" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
+
