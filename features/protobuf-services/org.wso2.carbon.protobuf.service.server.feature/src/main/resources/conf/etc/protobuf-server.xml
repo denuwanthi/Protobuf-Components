@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ProtobufConfig xsi:schemaLocation="http://wso2.com/schema/protobuf/config protobuf-server.xsd"
+         xmlns="http://wso2.com/schema/protobuf/config"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+	<!-- Enable RPC ProtobufServer -->
+	<Enable>true</Enable>
+	
+	<Server>		 
+		<!--
+		  Details of the RPC binary server
+		  HostName will be taken from carbon.xml
+		  If port offset is set in carbon.xml, effective port will be Port + Offset
+		-->
+	   	<Port>9001</Port>
+
+		<!--
+			SSL configuration
+			If true keystore and truststore information will be taken from carbon.xml
+		-->		
+	 	<EnableSSL>false</EnableSSL>
+
+		<!--
+		  Binary server thread pool configuration
+		  corePoolSize - the number of threads to keep in the pool, even if they are idle
+		  maxPoolSize - the maximum number of threads to allow in the pool
+		  timeout (sec) - If there are more than corePoolSize threads idle, Total-CorePoolSize threads will be destroyed in timeout sec
+		-->
+		<ServerCallExecutorThreadPool>
+			<CorePoolSize>16</CorePoolSize>
+			<MaxPoolSize>200</MaxPoolSize>
+			<MaxPoolTimeout>30</MaxPoolTimeout>
+			<WorkQueueCapacity>1000</WorkQueueCapacity>
+		</ServerCallExecutorThreadPool>
+
+		<!--
+			TimeoutExecutor uses a pool of threads to handle the timeout of client and server side RPC calls
+			corePoolSize - the number of threads to keep in the pool, even if they are idle
+		  	maxPoolSize - the maximum number of threads to allow in the pool
+		  	keepAliveTime -  when the number of threads is greater than	the corePoolSize, this is the maximum 
+		  						time that excess idle threads will wait for new tasks before terminating in SECONDS
+		-->
+		<TimeoutExecutorThreadPool>
+			<CorePoolSize>3</CorePoolSize>
+			<MaxPoolSize>16</MaxPoolSize>
+			<KeepAliveTime>30</KeepAliveTime>
+		</TimeoutExecutorThreadPool>
+		
+		<!--
+		 TimeoutChecker monitors all RPC client and server calls for all RpcChannels
+		 timeoutCheckerThreadPool contains configuration of timeoutchecker
+		 corePoolSize - the number of threads to keep in the pool, even if they are idle
+		 periodMs - Time period in MILLISECONDS, to monitor (check timeouts) periodically (this timeout check process
+		 					 cancel request on timeout) 
+		-->
+		<TimeoutCheckerThreadPool>
+			<CorePoolSize>3</CorePoolSize>
+			<Period>1000</Period>
+		</TimeoutCheckerThreadPool>
+
+		<!-- 
+		 Logging level
+	    -->
+		<Logger>
+			<LogReqProto>false</LogReqProto>
+			<LogResProto>false</LogResProto>
+			<LogEventProto>false</LogEventProto>
+		</Logger>		
+
+	</Server>
+
+	<Transport>
+		<!--
+			Netty framework TCP transport configuration
+			acceptors - threadpool to accept incomming connections
+			channelHandlers - handles the traffic of the accepted connection once the 
+					acceptors accepts the connection and registers the accepted 
+					connection to a child handler 
+			SO_SNDBUF - Send buffer size (socket option) in bytes
+			SO_RCVBUF - receive buffer size (socket option) in bytes
+		-->
+		<Acceptors>
+			<PoolSize>2</PoolSize>	
+			<SendBufferSize>1048576</SendBufferSize>
+			<ReceiverBufferSize>1048576</ReceiverBufferSize>	
+		</Acceptors>
+		<ChannelHandlers>
+			<PoolSize>16</PoolSize>	
+			<SendBufferSize>1048576</SendBufferSize>
+			<ReceiverBufferSize>1048576</ReceiverBufferSize>	
+		</ChannelHandlers>
+
+		<!--
+			to disable the Nagle buffering algorithm
+		-->
+		<TCPNoDelay>true</TCPNoDelay>
+
+	</Transport>
+
+</ProtobufConfig>
+

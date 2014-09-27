@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>aries-spifly-feature</artifactId>
+        <groupId>org.wso2.carbon</groupId>
+        <version>1.0.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>org.wso2.carbon.aries.spifly.server.feature</artifactId>
+    <packaging>pom</packaging>
+    <name>WSO2 support for aries spifly</name>
+    <url>http://wso2.org</url>
+    <description>
+        This feature contains the bundles required for providing apache aries spifly bundles.
+    </description>
+
+    <dependencies>
+         <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm-all</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.aries</groupId>
+            <artifactId>org.apache.aries.util</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.aries.spifly</groupId>
+            <artifactId>org.apache.aries.spifly.dynamic.bundle</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.wso2.maven</groupId>
+                <artifactId>carbon-p2-plugin</artifactId>
+                <version>${carbon.p2.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>p2-feature-generation</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>p2-feature-gen</goal>
+                        </goals>
+                        <configuration>
+                            <id>org.wso2.carbon.aries.spifly.server</id>
+                            <propertiesFile>../../../etc/feature.properties</propertiesFile>
+                            <adviceFile>
+                                <properties>
+                                    <propertyDef>org.wso2.carbon.p2.category.type:server</propertyDef>
+                                    <propertyDef>org.eclipse.equinox.p2.type.group:false</propertyDef>
+                                </properties>
+                            </adviceFile>
+                            <bundles>
+                                <bundleDef>org.ow2.asm:asm-all</bundleDef>
+                                <bundleDef>org.apache.aries:org.apache.aries.util</bundleDef>
+                                <bundleDef>org.apache.aries.spifly:org.apache.aries.spifly.dynamic.bundle</bundleDef>
+                            </bundles>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+</project>

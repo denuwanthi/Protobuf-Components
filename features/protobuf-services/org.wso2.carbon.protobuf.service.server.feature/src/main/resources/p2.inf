@@ -1,0 +1,2 @@
+instructions.configure = \
+org.eclipse.equinox.p2.touchpoint.natives.copy(source:${installFolder}/../features/org.wso2.carbon.protobuf.service.server_${feature.version}/conf/etc/protobuf-server.xml,target:${installFolder}/../../conf/etc/protobuf-server.xml,overwrite:true);\
