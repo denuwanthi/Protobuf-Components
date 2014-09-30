@@ -119,16 +119,16 @@ public class ProtobufServletContainerInitializer implements ServletContainerInit
 				}
 			} catch (InvocationTargetException e) {
 				String msg = "InvocationTargetException" + e.getLocalizedMessage();
-				log.info(msg, e);
+				log.error(msg, e);
 			} catch (NoSuchMethodException e) {
 				String msg = "NoSuchMethodException" + e.getLocalizedMessage();
-				log.info(msg, e);
+				log.error(msg, e);
 			} catch (InstantiationException e) {
 				String msg = "InstantiationException" + e.getLocalizedMessage();
-				log.info(msg, e);
+				log.error(msg, e);
 			} catch (IllegalAccessException e) {
 				String msg = "IllegalAccessException" + e.getLocalizedMessage();
-				log.info(msg, e);
+				log.error(msg, e);
 			}
 		}
 	}
